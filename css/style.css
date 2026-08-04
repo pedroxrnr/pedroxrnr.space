@@ -1,0 +1,124 @@
+:root {
+  --bg: #19181A;
+  --accent: #5A34AC;
+  --text: #fff;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--text);
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+body {
+  font-family: "Geist Mono", monospace;
+  font-size: 1rem;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  padding: 60px 0 40px;
+}
+
+.profile {
+  flex: 1;
+}
+
+.profile h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.profile h1 a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.profile h2 {
+  margin: 10px 0 4px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.profile p {
+  margin: 0;
+  color: #c8c8c8;
+}
+
+.nav-links {
+  margin-top: 4px;
+}
+
+.nav-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-links li + li {
+  margin-top: 8px;
+}
+
+.nav-links a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0 4px;
+  transition: background-color .2s ease;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible {
+  background-color: var(--accent);
+  outline: none;
+}
+
+.content h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.content h3 {
+  margin-top: 30px;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.content p {
+  line-height: 1.7;
+  color: #d8d8d8;
+}
+
+.footer {
+  padding: 40px 0 0;
+  font-size: 12px;
+  text-align: center;
+  opacity: 0.3;
+}
+
+@media (max-width: 480px) {
+  .header {
+    flex-direction: column;
+    gap: 30px;
+  }
+}
