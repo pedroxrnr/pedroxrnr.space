@@ -1,7 +1,7 @@
 :root {
-  --bg: #ffffff;
-  --accent: #5A34AC;
-  --text: #000000;
+  --bg: #100F12;
+  --accent: #A78BFA;
+  --text: #ffffff;
 }
 
 ::selection {
@@ -20,7 +20,7 @@ body {
 body {
   font-family: "Inconsolata", monospace;
   font-size: 1rem;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   padding: 0 20px;
   display: flex;
@@ -36,7 +36,7 @@ main {
   display: flex;
   align-items: center;
   gap: 40px;
-  padding: 60px 0 50px;
+  padding: 40px 0 60px;
 }
 
 .profile {
@@ -63,7 +63,7 @@ main {
 
 .profile p {
   margin: 0;
-  color: #666;
+  color: var(--text);
 }
 
 .nav-links {
@@ -86,7 +86,7 @@ main {
   padding: 0 4px;
   line-height: 1.2;
   font-weight: 500;
-  transition: background-color .2s ease;
+  transition: color .2s ease;
 }
 
 .nav-links a:hover,
@@ -108,7 +108,7 @@ main {
 
 .content p {
   line-height: 1.7;
-  color: #444;
+  color: #C9C9C9;
 }
 
 .footer {
