@@ -6,6 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description"
       content="Pedro's portfolio about cybersecurity: the tools he builds, articles he writes, and projects he's working on." />
+    <meta name="theme-color" content="#100F12" />
+    <meta property="og:title" content="PEDRØXRNR" />
+    <meta property="og:description"
+      content="Cybersecurity portfolio: tools, articles, and projects by Pedro." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pedroxrnr.space/" />
+    <meta property="og:image" content="https://www.pedroxrnr.space/og-image.png" />
+    <meta property="og:image:alt" content="PEDRØXRNR — cybersecurity portfolio by Pedro" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="PEDRØXRNR" />
+    <meta name="twitter:description"
+      content="Cybersecurity portfolio: tools, articles, and projects by Pedro." />
+    <meta name="twitter:image" content="https://www.pedroxrnr.space/og-image.png" />
+    <link rel="canonical" href="https://www.pedroxrnr.space/" />
     <title>PEDRØXRNR</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -14,6 +28,12 @@
   </head>
 
   <body>
+    <script>
+      if (sessionStorage.redirect) {
+        history.replaceState(null, '', sessionStorage.redirect)
+        sessionStorage.removeItem('redirect')
+      }
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
