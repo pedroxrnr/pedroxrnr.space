@@ -4,10 +4,10 @@ export default function Header() {
   const { pathname } = useLocation()
 
   const links = [
-    { to: '/', label: 'Home' },
-    { to: '/projects', label: 'Projects' },
-    { to: '/articles', label: 'Articles' },
-    { to: '/about', label: 'About' },
+    { to: '/', label: 'Home', num: '01' },
+    { to: '/projects', label: 'Projects', num: '02' },
+    { to: '/articles', label: 'Articles', num: '03' },
+    { to: '/about', label: 'About', num: '04' },
   ]
 
   return (
@@ -17,20 +17,28 @@ export default function Header() {
           <Link to="/">PEDRØXRNR</Link>
         </h1>
       </div>
-      <nav className="nav-links">
-        <ul>
-          {links.map(({ to, label }) => (
-            <li key={to}>
-              <Link
-                to={to}
-                aria-current={pathname === to ? 'page' : undefined}
-              >
-                {label}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      </nav>
+      <div className="nav-group">
+        <nav className="nav-links" aria-label="Main">
+          <ul>
+            {links.map(({ to, label, num }) => (
+              <li key={to}>
+                <Link
+                  to={to}
+                  className={pathname === to ? 'active' : undefined}
+                  aria-current={pathname === to ? 'page' : undefined}
+                >
+                  <span className="link-num">{num}./</span>{label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <span className="separator">│</span>
+        <span className="theme-toggle" role="button" tabIndex={0}>
+          [DARK]
+        </span>
+      </div>
+      <hr />
     </header>
   )
 }
