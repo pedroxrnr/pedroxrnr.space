@@ -6,7 +6,7 @@ export default function NotFound() {
 
   return (
     <section className="content">
-      <h2><span className="prompt">$</span> command not found: {window.location.pathname}</h2>
+      <h2><span className="prompt">~$</span> command not found: {window.location.pathname}</h2>
 
       <p>
         The page you're looking for doesn't exist.

@@ -1,6 +1,6 @@
 import { Link, useLocation } from 'react-router-dom'
 
-export default function Header() {
+export default function Header({ theme, onToggleTheme }) {
   const { pathname } = useLocation()
 
   const links = [
@@ -34,9 +34,15 @@ export default function Header() {
           </ul>
         </nav>
         <span className="separator">│</span>
-        <span className="theme-toggle" role="button" tabIndex={0}>
-          [DARK]
-        </span>
+        <button
+          className="theme-toggle"
+          type="button"
+          onClick={onToggleTheme}
+          aria-pressed={theme === 'light'}
+          aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} theme`}
+        >
+          [{theme === 'dark' ? 'DARK' : 'LIGHT'}]
+        </button>
       </div>
       <hr />
     </header>
