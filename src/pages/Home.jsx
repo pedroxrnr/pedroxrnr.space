@@ -1,7 +1,11 @@
+import useDocumentTitle from '../hooks/useDocumentTitle'
+
 export default function Home() {
+  useDocumentTitle('Home')
+
   return (
     <section className="content">
-      <h2>Introduction</h2>
+      <h2><span className="prompt">~$</span> Introduction</h2>
 
       <p>
         Hi! I'm Pedro, an Information Systems student passionate about cybersecurity.

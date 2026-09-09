@@ -1,7 +1,9 @@
 :root {
+  color-scheme: dark;
   --bg: #100F12;
   --accent: #A78BFA;
   --text: #ffffff;
+  --muted: #C9C9C9;
 }
 
 ::selection {
@@ -194,6 +196,27 @@ main {
   margin-bottom: 20px;
 }
 
+.content h2::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1.15em;
+  background: var(--accent);
+  vertical-align: text-bottom;
+  margin-left: 6px;
+  animation: blinkPipe 1s step-end infinite;
+}
+
+@keyframes blinkPipe {
+  50% {
+    opacity: 0;
+  }
+}
+
+.content h2 .prompt {
+  color: var(--accent);
+}
+
 .content h3 {
   margin-top: 30px;
   font-weight: 400;
@@ -202,7 +225,7 @@ main {
 
 .content p {
   line-height: 1.7;
-  color: #C9C9C9;
+  color: var(--muted);
 }
 
 .footer {
