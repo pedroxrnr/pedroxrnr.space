@@ -1,3 +1,19 @@
+/* ==========================================================================
+   PEDRØXRNR — styles
+   1. Theme tokens
+   2. Base & reset
+   3. Global layout
+   4. Header & navigation
+   5. Content & typography
+   6. Terminal
+   7. Project cards
+   8. Boot sequence
+   9. Footer
+   10. Responsive & motion
+   ========================================================================== */
+
+/* --- 1. Theme tokens ----------------------------------------------------- */
+
 :root {
   color-scheme: dark;
   --bg: #100F12;
@@ -10,6 +26,7 @@
   --glow-strong: rgba(167, 139, 250, 0.5);
   --glow-soft: rgba(167, 139, 250, 0.2);
   --code-bg: rgba(167, 139, 250, 0.08);
+  --card-bg: rgba(167, 139, 250, 0.04);
   --accent-soft: rgba(167, 139, 250, 0.3);
   --selection-text: #000;
   --nav-weight: 500;
@@ -29,12 +46,15 @@
   --glow-strong: rgba(107, 83, 166, 0.45);
   --glow-soft: rgba(107, 83, 166, 0.18);
   --code-bg: rgba(107, 83, 166, 0.1);
+  --card-bg: rgba(107, 83, 166, 0.05);
   --accent-soft: rgba(107, 83, 166, 0.3);
   --selection-text: #fff;
   --nav-weight: 600;
   --pre-bg: #0F0E13;
   --pre-text: #E6E6EB;
 }
+
+/* --- 2. Base & reset ----------------------------------------------------- */
 
 ::selection {
   background: var(--accent);
@@ -47,19 +67,10 @@
   box-sizing: border-box;
 }
 
-html,
-body {
-  color: var(--text);
-}
-
 html {
   background: var(--bg);
   scrollbar-color: var(--accent) transparent;
   scrollbar-width: thin;
-}
-
-body {
-  background: transparent;
 }
 
 html::-webkit-scrollbar {
@@ -77,6 +88,22 @@ html::-webkit-scrollbar-thumb {
 
 html::-webkit-scrollbar-thumb:hover {
   filter: brightness(1.3);
+}
+
+body {
+  color: var(--text);
+  background: transparent;
+  font-family: "Inconsolata", monospace;
+  font-size: 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 html::before {
@@ -105,19 +132,7 @@ body::after {
   );
 }
 
-body {
-  font-family: "Inconsolata", monospace;
-  font-size: 1rem;
-  max-width: 900px;
-  margin: 0 auto;
-  padding: 0 20px;
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-}
+/* --- 3. Global layout ---------------------------------------------------- */
 
 #root {
   display: flex;
@@ -144,6 +159,8 @@ main::before {
   z-index: -1;
 }
 
+/* --- 4. Header & navigation ---------------------------------------------- */
+
 .header {
   position: static;
   background: transparent;
@@ -152,6 +169,14 @@ main::before {
   align-items: center;
   gap: 4px;
   padding: 12px 0 0;
+}
+
+.header hr {
+  flex-basis: 100%;
+  border: none;
+  border-top: 1px solid var(--accent);
+  opacity: 0.2;
+  margin-top: 8px;
 }
 
 .profile {
@@ -166,15 +191,16 @@ main::before {
 }
 
 .profile h1 a {
+  display: inline-block;
   color: var(--accent);
   text-decoration: none;
   animation: glowPulse 2.4s ease-in-out infinite;
-  transition: filter 0.2s ease;
 }
 
 .profile h1 a:hover,
 .profile h1 a:focus-visible {
-  filter: brightness(1.15);
+  animation: glowPulse 2.4s ease-in-out infinite, crtSignal 1s linear infinite;
+  will-change: transform;
 }
 
 @keyframes glowPulse {
@@ -188,24 +214,85 @@ main::before {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+@keyframes crtSignal {
+  0%,
+  100% {
+    transform: translate(0, 0) skewX(0deg);
+    text-shadow: none;
+  }
+
+  8% {
+    transform: translate(0, 2px) skewX(0deg);
+  }
+
+  12% {
+    transform: translate(-2px, 0) skewX(-4deg);
+    text-shadow:
+      -2px 0 0 rgba(255, 45, 85, 0.55),
+      2px 0 0 rgba(0, 229, 255, 0.55);
+  }
+
+  20% {
+    transform: translate(3px, 0) skewX(2deg);
+    text-shadow:
+      -3px 0 0 rgba(255, 45, 85, 0.6),
+      3px 0 0 rgba(0, 229, 255, 0.6);
+  }
+
+  28% {
+    transform: translate(-3px, -1px) skewX(-5deg);
+    text-shadow:
+      -2px 0 1px rgba(255, 45, 85, 0.55),
+      2px 0 1px rgba(0, 229, 255, 0.55);
+  }
+
+  36% {
+    transform: translate(2px, 0) skewX(2deg);
+    text-shadow:
+      -1px 0 0 rgba(255, 45, 85, 0.5),
+      1px 0 0 rgba(0, 229, 255, 0.5);
+  }
+
+  44% {
+    transform: translate(-2px, 1px) skewX(4deg);
+    text-shadow:
+      -3px 0 0 rgba(255, 45, 85, 0.6),
+      3px 0 0 rgba(0, 229, 255, 0.6);
+  }
+
+  52% {
+    transform: translate(3px, 0) skewX(-3deg);
+    text-shadow:
+      -2px 0 0 rgba(255, 45, 85, 0.5),
+      2px 0 0 rgba(0, 229, 255, 0.5);
+  }
+
+  60% {
+    transform: translate(-2px, 0) skewX(1deg);
+    text-shadow:
+      -1px 0 0 rgba(255, 45, 85, 0.45),
+      1px 0 0 rgba(0, 229, 255, 0.45);
+  }
+
+  68% {
+    transform: translate(1px, 0) skewX(-2deg);
+    text-shadow:
+      -1px 0 0 rgba(255, 45, 85, 0.4),
+      1px 0 0 rgba(0, 229, 255, 0.4);
+  }
+
+  76% {
+    transform: translate(0, 0) skewX(0deg);
+  }
+
+  90% {
+    transform: translate(0, 0) skewX(0deg);
+    text-shadow: none;
   }
 }
 
 .nav-links {
   margin: 0;
-}
-
-.nav-group {
-  display: flex;
-  align-items: center;
-  gap: 4px;
 }
 
 .nav-links ul {
@@ -257,9 +344,22 @@ main::before {
   color: var(--accent);
 }
 
+.nav-group {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
 .link-num {
   font-size: 0.85em;
   margin-right: 2px;
+}
+
+.separator {
+  color: var(--accent);
+  opacity: 0.3;
+  user-select: none;
+  padding: 0 2px;
 }
 
 .theme-toggle {
@@ -279,13 +379,6 @@ main::before {
   text-align: center;
 }
 
-.separator {
-  color: var(--accent);
-  opacity: 0.3;
-  user-select: none;
-  padding: 0 2px;
-}
-
 .theme-toggle:hover {
   opacity: 1;
 }
@@ -295,13 +388,7 @@ main::before {
   outline-offset: 2px;
 }
 
-.header hr {
-  flex-basis: 100%;
-  border: none;
-  border-top: 1px solid var(--accent);
-  opacity: 0.2;
-  margin-top: 8px;
-}
+/* --- 5. Content & typography ---------------------------------------------- */
 
 .content h2 {
   margin-top: 36px;
@@ -377,6 +464,8 @@ main::before {
   font-size: inherit;
 }
 
+/* --- 6. Terminal ---------------------------------------------------------- */
+
 .terminal {
   margin: 0 0 16px;
   background: var(--pre-bg);
@@ -438,16 +527,107 @@ main::before {
   color: var(--accent);
 }
 
-.footer {
-  padding: 40px 0 10px;
-  font-size: 13px;
-  opacity: 0.3;
-  line-height: 1.9;
-  display: flex;
-  justify-content: space-between;
+/* --- 7. Project cards ----------------------------------------------------- */
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
-  flex-wrap: wrap;
+  margin: 0 0 16px;
 }
+
+.project-card {
+  border: 1px solid var(--accent-soft);
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: var(--card-bg);
+  display: flex;
+  flex-direction: column;
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.2s ease;
+}
+
+.project-card:hover {
+  border-color: var(--accent);
+  background-color: var(--code-bg);
+  transform: translateY(-2px);
+}
+
+.project-card .project-link {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  color: inherit;
+  text-decoration: none;
+}
+
+.project-card .project-link:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.project-card h3.project-title {
+  margin: 0;
+  padding: 2px 0 10px;
+  border-bottom: 1px solid var(--accent-soft);
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-style: normal;
+  line-height: 1.3;
+}
+
+.project-card h3::before {
+  content: none;
+}
+
+.project-body {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+.project-body p {
+  margin: 0;
+  font-size: 0.9em;
+  line-height: 1.55;
+}
+
+.project-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.project-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.project-date {
+  font-family: "Inconsolata", monospace;
+  font-size: 0.8em;
+  color: var(--muted);
+}
+
+.project-card .project-repo {
+  color: var(--accent);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9em;
+  align-self: flex-end;
+}
+
+.project-card:hover .project-repo {
+  text-decoration: underline;
+}
+
+/* --- 8. Boot sequence ----------------------------------------------------- */
 
 .boot-overlay {
   position: fixed;
@@ -506,7 +686,42 @@ main::before {
   color: var(--text);
 }
 
+/* --- 9. Footer ------------------------------------------------------------ */
+
+.footer {
+  padding: 40px 0 10px;
+  font-size: 13px;
+  opacity: 0.3;
+  line-height: 1.9;
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+/* --- 10. Responsive & motion ---------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+@media (max-width: 1000px) {
+  .projects-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (max-width: 720px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
   .header {
     flex-direction: column;
     gap: 16px;
