@@ -536,6 +536,12 @@ main::before {
   margin: 0 0 16px;
 }
 
+.projects-empty {
+  grid-column: 1 / -1;
+  color: var(--muted);
+  font-size: 0.95em;
+}
+
 .project-card {
   border: 1px solid var(--accent-soft);
   border-radius: 8px;

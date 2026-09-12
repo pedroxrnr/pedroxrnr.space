@@ -28,34 +28,38 @@ export default function Projects() {
       </p>
 
       <div className="projects-grid">
-        {projects.map((project) => (
-          <article className="project-card" key={project.name}>
-            <a
-              className="project-link"
-              href={project.repo}
-              target="_blank"
-              rel="noreferrer"
-              aria-label={`Open ${project.name} repository on GitHub`}
-            >
-              <div className="project-body">
-                <h3 className="project-title">./{project.name}</h3>
-                <div className="project-tech">
-                  {project.tech.map((tech) => (
-                    <code key={tech}>{tech}</code>
-                  ))}
+        {projects.length === 0 ? (
+          <p className="projects-empty">No public projects yet, back soon.</p>
+        ) : (
+          projects.map((project) => (
+            <article className="project-card" key={project.name}>
+              <a
+                className="project-link"
+                href={project.repo}
+                target="_blank"
+                rel="noreferrer"
+                aria-label={`Open ${project.name} repository on GitHub`}
+              >
+                <div className="project-body">
+                  <h3 className="project-title">./{project.name}</h3>
+                  <div className="project-tech">
+                    {project.tech.map((tech) => (
+                      <code key={tech}>{tech}</code>
+                    ))}
+                  </div>
+                  <p>{project.desc}</p>
+                  <div className="project-meta">
+                    <span className="project-date">{project.date}</span>
+                    <span className="project-repo">
+                      <GitHubIcon />
+                      github
+                    </span>
+                  </div>
                 </div>
-                <p>{project.desc}</p>
-                <div className="project-meta">
-                  <span className="project-date">{project.date}</span>
-                  <span className="project-repo">
-                    <GitHubIcon />
-                    github
-                  </span>
-                </div>
-              </div>
-            </a>
-          </article>
-        ))}
+              </a>
+            </article>
+          ))
+        )}
       </div>
     </section>
   )
