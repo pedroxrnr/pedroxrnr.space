@@ -6,11 +6,12 @@ import BootSequence from './components/BootSequence'
 import Home from './pages/Home'
 import Projects from './pages/Projects'
 import Articles from './pages/Articles'
+import Article from './pages/Article'
 import About from './pages/About'
 import NotFound from './pages/NotFound'
 import { NAV_LINKS } from './nav'
 
-const THEME_COLORS = { dark: '#100F12', light: '#F8F9FC' }
+const THEME_COLORS = { dark: '#100F12', light: '#FAF7F0' }
 
 function useScrollToTop() {
   const { pathname } = useLocation()
@@ -50,6 +51,7 @@ function getInitialTheme() {
 }
 
 export default function App() {
+  const { pathname } = useLocation()
   const [theme, setTheme] = useState(getInitialTheme)
   const [booted, setBooted] = useState(false)
   const navigate = useNavigate()
@@ -80,13 +82,16 @@ export default function App() {
       {!booted && <BootSequence onComplete={handleBootComplete} />}
       <Header theme={theme} onToggleTheme={toggleTheme} />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/articles" element={<Articles />} />
-          <Route path="/about" element={<About />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <div className="page" key={pathname}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/articles" element={<Articles />} />
+            <Route path="/articles/:slug" element={<Article />} />
+            <Route path="/about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </main>
       <Footer />
     </>
