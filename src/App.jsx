@@ -70,7 +70,9 @@ export default function App() {
     document.querySelector('meta[name="theme-color"]')?.setAttribute('content', THEME_COLORS[theme])
     try {
       localStorage.setItem('theme', theme)
-    } catch {}
+    } catch {
+      // localStorage unavailable (private mode, etc.)
+    }
   }, [theme])
 
   return (
