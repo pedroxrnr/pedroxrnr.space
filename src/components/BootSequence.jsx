@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useRef } from 'react'
 
 const BOOT_LINES = [
   { text: '[    0.000000] PEDRØXRNR v2.0.0', ok: false },
@@ -24,11 +24,14 @@ export default function BootSequence({ onComplete }) {
       return false
     }
   })
+  const skipButtonRef = useRef(null)
 
   const skip = useCallback(() => {
     try {
       sessionStorage.setItem(STORAGE_KEY, 'true')
-    } catch {}
+    } catch {
+      // sessionStorage unavailable (private mode, etc.)
+    }
     setIsExiting(true)
   }, [])
 
@@ -37,6 +40,29 @@ export default function BootSequence({ onComplete }) {
       onComplete()
     }
   }, [bootSeen, onComplete])
+
+  useEffect(() => {
+    const previouslyFocused = document.activeElement
+    skipButtonRef.current?.focus()
+
+    return () => {
+      if (previouslyFocused && typeof previouslyFocused.focus === 'function') {
+        previouslyFocused.focus()
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    if (bootSeen) return
+
+    const prefersReducedMotion =
+      typeof window.matchMedia === 'function' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (!prefersReducedMotion) return
+
+    const t = setTimeout(skip, 0)
+    return () => clearTimeout(t)
+  }, [bootSeen, skip])
 
   useEffect(() => {
     if (bootSeen) return
@@ -49,7 +75,9 @@ export default function BootSequence({ onComplete }) {
       setIsExiting(true)
       try {
         sessionStorage.setItem(STORAGE_KEY, 'true')
-      } catch {}
+      } catch {
+        // sessionStorage unavailable (private mode, etc.)
+      }
     }, 320 + BOOT_LINES.length * LINE_DELAY + EXIT_DELAY)
 
     return () => {
@@ -79,6 +107,7 @@ export default function BootSequence({ onComplete }) {
     <div
       className={`boot-overlay ${isExiting ? 'boot-exit' : ''}`}
       role="dialog"
+      aria-modal="true"
       aria-label="System boot"
     >
       <div className="boot-log" role="log" aria-label="Boot log">
@@ -92,7 +121,7 @@ export default function BootSequence({ onComplete }) {
         ))}
       </div>
 
-      <button className="boot-skip" onClick={skip} type="button">
+      <button className="boot-skip" onClick={skip} type="button" ref={skipButtonRef}>
         Skip [Enter]
       </button>
     </div>
