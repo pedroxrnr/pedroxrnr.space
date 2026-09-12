@@ -697,7 +697,7 @@ main::before {
 .footer {
   padding: 40px 0 10px;
   font-size: 13px;
-  opacity: 0.3;
+  opacity: 0.75;
   line-height: 1.9;
   display: flex;
   justify-content: space-between;
@@ -756,5 +756,12 @@ main::before {
 
   .header hr {
     margin-top: 0;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 6px;
   }
 }
