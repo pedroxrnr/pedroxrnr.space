@@ -515,6 +515,11 @@ main::before {
   font-family: "Inconsolata", monospace;
 }
 
+.terminal-bar::after {
+  content: "";
+  width: 42px;
+}
+
 .terminal .terminal-body {
   margin: 0;
   background: none;
@@ -705,7 +710,340 @@ main::before {
   flex-wrap: wrap;
 }
 
-/* --- 10. Responsive & motion ---------------------------------------------- */
+/* --- 10. Articles -------------------------------------------------------- */
+
+.matrix-hero {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  margin: 0 0 24px;
+}
+
+.matrix-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.matrix-phrases {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 32px;
+  font-family: "VT323", "Inconsolata", monospace;
+  font-size: 1.42rem;
+  line-height: 1.4;
+  color: var(--text);
+  text-shadow: 0 0 12px color-mix(in srgb, var(--text) 30%, transparent);
+  pointer-events: none;
+}
+
+.matrix-text {
+  display: inline-block;
+}
+
+.matrix-green {
+  color: #3fb950;
+  animation: coloredPulse 2.4s ease-in-out infinite;
+  animation-delay: var(--pulse-delay, 0s);
+}
+
+.matrix-red {
+  color: #ff4d5a;
+  animation: coloredPulse 2.4s ease-in-out infinite;
+  animation-delay: var(--pulse-delay, 0s);
+}
+
+@keyframes coloredPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 3px color-mix(in srgb, currentColor 18%, transparent);
+  }
+
+  50% {
+    text-shadow:
+      0 0 6px color-mix(in srgb, currentColor 32%, transparent),
+      0 0 11px color-mix(in srgb, currentColor 12%, transparent);
+  }
+}
+
+.matrix-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.2em;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  background: currentColor;
+  animation: matrixBlink 1s steps(1) infinite;
+}
+
+.matrix-prompt {
+  color: var(--accent);
+  font-weight: 700;
+  margin-right: 10px;
+  user-select: none;
+}
+
+@keyframes matrixBlink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.articles-empty {
+  color: var(--muted);
+  font-size: 0.95em;
+}
+
+.article-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 24px;
+}
+
+.filter-chip {
+  border: 1px solid var(--accent-soft);
+  background: transparent;
+  color: var(--muted);
+  font-family: "Inconsolata", monospace;
+  font-size: 0.85em;
+  padding: 3px 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s, background-color 0.2s;
+}
+
+.filter-chip:hover {
+  border-color: var(--accent);
+  color: var(--text);
+}
+
+.filter-chip:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.filter-chip.active {
+  border-color: var(--accent);
+  background: var(--code-bg);
+  color: var(--accent);
+}
+
+.pagination {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+}
+
+.filter-chip[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.articles-list {
+  border-top: 1px solid var(--accent-soft);
+}
+
+.article-item {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--accent-soft);
+}
+
+.article-item-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 8px;
+}
+
+.article-item h3 {
+  margin: 0;
+  font-style: normal;
+}
+
+.article-item h3::before {
+  content: none;
+}
+
+.article-item h3 a {
+  color: var(--text);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.article-item h3 a:hover {
+  color: var(--accent);
+}
+
+.article-excerpt {
+  margin: 0 0 12px;
+  color: var(--muted);
+  font-size: 0.95em;
+  line-height: 1.6;
+}
+
+.article-date {
+  color: var(--muted);
+  font-size: 0.8em;
+  white-space: nowrap;
+}
+
+.article-item-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.article-tag {
+  border: none;
+  background: var(--code-bg);
+  color: var(--accent);
+  font-family: "Inconsolata", monospace;
+  font-size: 0.75em;
+  padding: 2px 8px;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.article-tag:hover {
+  background: var(--accent);
+  color: var(--selection-text);
+}
+
+.article-tag:focus-visible {
+  outline: 1px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.article-page h3 {
+  font-style: normal;
+}
+
+.article-page h3::before {
+  content: none;
+}
+
+.article-page h4 {
+  margin-top: 24px;
+  margin-bottom: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.article-page h5,
+.article-page h6 {
+  margin-top: 20px;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.article-meta-line {
+  color: var(--muted);
+  font-size: 0.9em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.article-meta-line .article-date,
+.article-meta-line .article-meta-id {
+  font-size: inherit;
+}
+
+.article-sep {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+.article-meta-id {
+  color: var(--accent);
+  opacity: 0.7;
+}
+
+.article-page ul,
+.article-page ol {
+  margin: 0 0 16px;
+  padding-left: 24px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.article-page li {
+  margin: 0 0 6px;
+}
+
+.article-page li::marker {
+  color: var(--accent);
+}
+
+.article-page blockquote {
+  margin: 0 0 16px;
+  padding: 4px 16px;
+  border-left: 3px solid var(--accent);
+  background: var(--card-bg);
+  color: var(--muted);
+}
+
+.article-page blockquote p {
+  margin: 0;
+}
+
+.article-page table {
+  width: 100%;
+  margin: 0 0 16px;
+  border-collapse: collapse;
+  font-size: 0.9em;
+}
+
+.article-page th,
+.article-page td {
+  border: 1px solid var(--accent-soft);
+  padding: 6px 12px;
+  text-align: left;
+}
+
+.article-page th {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.article-page hr {
+  border: none;
+  border-top: 1px solid var(--accent-soft);
+  margin: 24px 0;
+}
+
+.article-back {
+  display: inline-block;
+  margin-top: 32px;
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.9em;
+}
+
+.article-back:hover {
+  filter: brightness(1.2);
+}
+
+/* --- 11. Responsive & motion ---------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -763,5 +1101,42 @@ main::before {
     align-items: center;
     text-align: center;
     gap: 6px;
+  }
+
+  .matrix-hero {
+    height: 205px;
+  }
+
+  .matrix-phrases {
+    padding: 0 20px;
+    font-size: 1.08rem;
+    gap: 8px;
+  }
+}
+.page {
+  animation: pageIn 0.35s ease-out both;
+}
+
+@keyframes pageIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.articles-list {
+  animation: listIn 0.25s ease-out both;
+}
+
+@keyframes listIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
   }
 }
