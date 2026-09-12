@@ -29,7 +29,7 @@ export default function Projects() {
 
       <div className="projects-grid">
         {projects.length === 0 ? (
-          <p className="projects-empty">No public projects yet, back soon.</p>
+          <p className="projects-empty">No public projects yet, check back soon.</p>
         ) : (
           projects.map((project) => (
             <article className="project-card" key={project.name}>
@@ -43,7 +43,7 @@ export default function Projects() {
                 <div className="project-body">
                   <h3 className="project-title">./{project.name}</h3>
                   <div className="project-tech">
-                    {project.tech.map((tech) => (
+                    {(project.tech ?? []).map((tech) => (
                       <code key={tech}>{tech}</code>
                     ))}
                   </div>
