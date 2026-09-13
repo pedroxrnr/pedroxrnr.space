@@ -1,66 +1,40 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Pedro's portfolio about cybersecurity: the tools he builds, articles he writes, and projects he's working on." />
-  <title>PEDRØXRNR</title>
+  <head>
+    <script>
+      try {
+        document.documentElement.dataset.theme = localStorage.getItem('theme') || 'dark'
+      } catch {}
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description"
+      content="Pedro's portfolio about cybersecurity: the tools he builds, articles he writes, and projects he's working on." />
+    <meta name="theme-color" id="theme-color" content="#100F12" />
+    <meta property="og:title" content="PEDRØXRNR" />
+    <meta property="og:description"
+      content="Cybersecurity portfolio: tools, articles, and projects by Pedro." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.pedroxrnr.space/" />
+    <meta property="og:image" content="https://www.pedroxrnr.space/og-image.png" />
+    <meta property="og:image:alt" content="PEDRØXRNR · cybersecurity portfolio by Pedro" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="PEDRØXRNR" />
+    <meta name="twitter:description"
+      content="Cybersecurity portfolio: tools, articles, and projects by Pedro." />
+    <meta name="twitter:image" content="https://www.pedroxrnr.space/og-image.png" />
+    <link rel="canonical" href="https://www.pedroxrnr.space/" />
+    <title>PEDRØXRNR</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&family=VT323&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  </head>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap" rel="stylesheet" />
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-
-<body>
-  <header class="header">
-    <div class="profile">
-      <h1>
-        <a href="/index.html">PEDRØXRNR</a>
-      </h1>
-
-      <h2>Cybersecurity</h2>
-      <p>Information Systems Student</p>
-    </div>
-
-    <nav class="nav-links">
-      <ul>
-        <li><a href="/index.html" aria-current="page">Home</a></li>
-        <li><a href="/pages/projects.html">Projects</a></li>
-        <li><a href="/pages/articles.html">Articles</a></li>
-        <li><a href="/pages/about.html">About</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section class="content">
-      <h2>Introduction</h2>
-
-      <p>
-        Hi! I'm Pedro, an Information Systems student passionate about cybersecurity.
-        This portfolio showcases the tools I build, the articles I write, and the projects I'm working on.
-      </p>
-
-      <h3>What I'm Learning</h3>
-
-      <p>
-        I'm currently focused on Python and cybersecurity fundamentals, threat detection, incident response, and
-        defensive security while building practical experience through hands-on labs and personal projects.
-      </p>
-
-      <h3>Technologies</h3>
-
-      <p>
-        Python • C • Linux • Git • Bash • HTML • CSS
-      </p>
-    </section>
-  </main>
-  <footer class="footer">
-    <p>© 2026 pedroxrnr. All rights reserved.</p>
-  </footer>
-</body>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 
 </html>
