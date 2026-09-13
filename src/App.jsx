@@ -53,8 +53,9 @@ function getInitialTheme() {
 export default function App() {
   const { pathname } = useLocation()
   const [theme, setTheme] = useState(getInitialTheme)
-  const [booted, setBooted] = useState(false)
   const navigate = useNavigate()
+
+  const [booted, setBooted] = useState(false)
 
   const handleBootComplete = useCallback(() => {
     setBooted(true)

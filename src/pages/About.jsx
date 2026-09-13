@@ -8,7 +8,7 @@ import { EXPERIENCE } from '../data/experience'
 const CONTACTS = [
   { label: 'GitHub', value: 'github.com/pedroxrnr', url: 'https://github.com/pedroxrnr', Icon: GitHubIcon },
   { label: 'LinkedIn', value: 'linkedin.com/in/pedroxrnr', url: 'https://linkedin.com/in/pedroxrnr', Icon: LinkedInIcon },
-  { label: 'Email', value: 'pedroxrnr@proton.me', url: 'mailto:pedroxrnr@proton.me', Icon: EmailIcon },
+  { label: 'Email', value: 'renerpedro@gmail.com', url: 'mailto:renerpedro@gmail.com', Icon: EmailIcon },
 ]
 
 export default function About() {
@@ -47,20 +47,27 @@ export default function About() {
       )}
 
       <h3>Contact</h3>
-      <div className="about-contact-links">
-        {CONTACTS.map(({ label, value, url, Icon }) => (
-          <a
-            key={label}
-            href={url}
-            className="about-contact-link"
-            aria-label={`${label}: ${value}`}
-            title={label}
-            {...(url.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noreferrer' })}
-          >
-            <Icon />
-            <span className="about-contact-name">{label}</span>
-          </a>
-        ))}
+      <div className="about-contact">
+        <div className="about-contact-command">
+          <span className="term-prompt">~$</span>
+          <span>cat ~/.contact</span>
+        </div>
+        <ul className="about-contact-links">
+          {CONTACTS.map(({ label, value, url, Icon }) => (
+            <li key={label}>
+              <a
+                href={url}
+                aria-label={`${label}: ${value}`}
+                title={label}
+                {...(url.startsWith('mailto:') ? {} : { target: '_blank', rel: 'noreferrer' })}
+              >
+                <span className="about-contact-icon"><Icon /></span>
+                <span className="about-contact-name">{label}</span>
+                <span className="about-contact-handle">{value}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   )
