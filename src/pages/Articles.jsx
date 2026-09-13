@@ -52,7 +52,7 @@ export default function Articles() {
       <p>Writeups and notes about cybersecurity, computers, or any other subject.</p>
 
       {articles.length === 0 ? (
-        <p className="articles-empty">No articles yet — check back soon.</p>
+        <p className="articles-empty">No articles yet. Check back soon.</p>
       ) : (
         <>
           <div className="article-filters" role="group" aria-label="Filter articles by tag">
@@ -84,13 +84,13 @@ export default function Articles() {
               <div className="articles-list" key={page}>
                 {pageItems.map((article) => (
                   <article className="article-item" key={article.slug}>
-                    <div className="article-item-head">
-                      <h3>
-                        <Link to={`/articles/${article.slug}`}>{article.meta.title}</Link>
-                      </h3>
-                      <span className="article-date">{article.meta.dateLabel}</span>
-                    </div>
-                    <p className="article-excerpt">{article.meta.excerpt}</p>
+                    <Link className="article-item-main" to={`/articles/${article.slug}`}>
+                      <span className="article-item-head">
+                        <span className="article-item-title">{article.meta.title}</span>
+                        <span className="article-date">{article.meta.dateLabel}</span>
+                      </span>
+                      <span className="article-excerpt">{article.meta.excerpt}</span>
+                    </Link>
                     <div className="article-item-tags">
                       {article.meta.tags.map((t) => (
                         <button

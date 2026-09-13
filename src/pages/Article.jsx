@@ -20,7 +20,7 @@ export default function Article() {
   const { slug } = useParams()
   const article = getArticle(slug)
 
-  useDocumentTitle(article ? article.meta.title : '404 — Article Not Found')
+  useDocumentTitle(article ? article.meta.title : '404: Article Not Found')
 
   if (!article) return <NotFound />
 

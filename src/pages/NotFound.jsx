@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 
 export default function NotFound() {
-  useDocumentTitle('404 — Not Found')
+  useDocumentTitle('404 · Not Found')
 
   const path = typeof window !== 'undefined' ? window.location.pathname : ''
 
