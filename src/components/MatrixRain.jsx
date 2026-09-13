@@ -256,8 +256,9 @@ export default function MatrixRain() {
       <div className="matrix-phrases" aria-hidden="true">
         {rows.map(({ showText, shown, typing, persistent }, i) => {
           const segments = LINE_SEGMENTS[i]
+          const started = shown > 0
           return (
-            <div className="matrix-line" key={`${i}`}>
+            <div className={`matrix-line${started ? '' : ' hidden'}`} key={`${i}`}>
               <span className="matrix-prompt" aria-hidden="true">&gt;</span>
               <span className="matrix-text">
                 {segments ? renderSegments(segments, shown, PULSE_DELAYS) : showText}
