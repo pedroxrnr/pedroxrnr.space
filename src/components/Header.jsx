@@ -4,6 +4,8 @@ import { NAV_LINKS } from '../nav'
 export default function Header({ theme, onToggleTheme }) {
   const { pathname } = useLocation()
 
+  const isActive = (to) => (to === '/' ? pathname === '/' : pathname.startsWith(to))
+
   return (
     <header className="header">
       <div className="profile">
@@ -18,8 +20,8 @@ export default function Header({ theme, onToggleTheme }) {
               <li key={to}>
                 <Link
                   to={to}
-                  className={pathname === to ? 'active' : undefined}
-                  aria-current={pathname === to ? 'page' : undefined}
+                  className={isActive(to) ? 'active' : undefined}
+                  aria-current={isActive(to) ? 'page' : undefined}
                 >
                   <span className="link-num">{num}./</span>{label}
                 </Link>

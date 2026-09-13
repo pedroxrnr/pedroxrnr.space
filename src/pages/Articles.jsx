@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import MatrixRain from '../components/MatrixRain'
@@ -11,7 +10,7 @@ export default function Articles() {
   useDocumentTitle('Articles')
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const [tag, setTag] = useState(null)
+  const tag = searchParams.get('tag') || null
 
   const filtered = tag ? articles.filter((a) => a.meta.tags.includes(tag)) : articles
 
@@ -30,14 +29,16 @@ export default function Articles() {
 
   const goToPage = (n) => {
     const next = {}
+    if (tag) next.tag = tag
     if (n > 1) next.page = String(n)
     setSearchParams(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const changeTag = (t) => {
-    setTag(t)
-    setSearchParams({})
+    const next = {}
+    if (t) next.tag = t
+    setSearchParams(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
@@ -52,7 +53,7 @@ export default function Articles() {
       <p>Writeups and notes about cybersecurity, computers, or any other subject.</p>
 
       {articles.length === 0 ? (
-        <p className="articles-empty">No articles yet. Check back soon.</p>
+        <p className="articles-empty">No articles yet, Check back soon.</p>
       ) : (
         <>
           <div className="article-filters" role="group" aria-label="Filter articles by tag">
@@ -70,7 +71,7 @@ export default function Articles() {
                 key={t}
                 className={tag === t ? 'filter-chip active' : 'filter-chip'}
                 aria-pressed={tag === t}
-                onClick={() => changeTag(t)}
+                onClick={() => changeTag(tag === t ? null : t)}
               >
                 {t}
               </button>

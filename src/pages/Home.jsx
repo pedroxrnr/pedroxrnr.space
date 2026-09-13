@@ -3,6 +3,7 @@ import useDocumentTitle from '../hooks/useDocumentTitle'
 import GitHubIcon from '../components/GitHubIcon'
 import { projects } from '../data/projects'
 import { articles } from '../data/articles'
+import { SKILLS } from '../data/skills'
 
 const featuredProjects = projects.filter((p) => p.featured).slice(0, 3)
 const latestArticle = articles[0] ?? null
@@ -28,9 +29,11 @@ export default function Home() {
 
       <h3>Technologies</h3>
 
-      <p>
-        Python &bull; C &bull; Linux &bull; Git &bull; Bash &bull; HTML &bull; CSS
-      </p>
+      <ul className="tech-chips" aria-label="Technologies">
+        {SKILLS.map((skill) => (
+          <li key={skill}><code>{skill}</code></li>
+        ))}
+      </ul>
 
       {featuredProjects.length > 0 && (
         <section className="home-projects">
