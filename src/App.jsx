@@ -1,15 +1,16 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import BootSequence from './components/BootSequence'
-import Home from './pages/Home'
-import Projects from './pages/Projects'
-import Articles from './pages/Articles'
-import Article from './pages/Article'
-import About from './pages/About'
-import NotFound from './pages/NotFound'
 import { NAV_LINKS } from './nav'
+
+const Home = lazy(() => import('./pages/Home'))
+const Projects = lazy(() => import('./pages/Projects'))
+const Articles = lazy(() => import('./pages/Articles'))
+const Article = lazy(() => import('./pages/Article'))
+const About = lazy(() => import('./pages/About'))
+const NotFound = lazy(() => import('./pages/NotFound'))
 
 const THEME_COLORS = { dark: '#100F12', light: '#FAF7F0' }
 
@@ -84,14 +85,16 @@ export default function App() {
       <Header theme={theme} onToggleTheme={toggleTheme} />
       <main>
         <div className="page" key={pathname}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/projects" element={<Projects />} />
-            <Route path="/articles" element={<Articles />} />
-            <Route path="/articles/:slug" element={<Article />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={null}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/projects" element={<Projects />} />
+              <Route path="/articles" element={<Articles />} />
+              <Route path="/articles/:slug" element={<Article />} />
+              <Route path="/about" element={<About />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </div>
       </main>
       <Footer />

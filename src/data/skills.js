@@ -1,1 +1,3 @@
-export const SKILLS = ['Python', 'C', 'Linux', 'Git', 'Bash', 'HTML', 'CSS']
+export const SKILLS = ['Python', 'C', 'Linux', 'Git', 'Bash']
+
+export const ABOUT_SKILLS = [...SKILLS, 'Networking', 'Security Fundamentals']

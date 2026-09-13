@@ -15,7 +15,11 @@ const redirect = (() => {
 })()
 
 if (redirect) {
-  history.replaceState(null, '', redirect)
+  try {
+    history.replaceState(null, '', redirect)
+  } catch {
+    // redirect unreachable/cross-origin: keep the current URL
+  }
 }
 
 ReactDOM.createRoot(document.getElementById('root')).render(

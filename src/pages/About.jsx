@@ -2,7 +2,7 @@ import useDocumentTitle from '../hooks/useDocumentTitle'
 import GitHubIcon from '../components/GitHubIcon'
 import LinkedInIcon from '../components/LinkedInIcon'
 import EmailIcon from '../components/EmailIcon'
-import { SKILLS } from '../data/skills'
+import { ABOUT_SKILLS } from '../data/skills'
 import { EXPERIENCE } from '../data/experience'
 
 const CONTACTS = [
@@ -19,11 +19,24 @@ export default function About() {
       <h2><span className="prompt">~$</span> About</h2>
 
       <h3>Bio</h3>
-      <p>[ bio em breve ]</p>
+      <p>
+        I'm Pedro, a Brazilian Information Systems undergrad at UniFAPCE (2nd semester), passionate about
+        cybersecurity and defensive security.
+      </p>
+      <p>
+        I'm currently building a solid foundation in Linux, networking, Python, and security fundamentals through
+        continuous study, hands-on labs, and personal projects, while taking Google's Foundations of Cybersecurity
+        course.
+      </p>
+      <p>
+        My goal is to build a career in cybersecurity, contribute to real-world projects, and keep sharpening my
+        technical skills every day.
+      </p>
+      <p className="bio-meta">Languages: Portuguese (native), English (advanced)</p>
 
       <h3>Skills</h3>
       <ul className="tech-chips" aria-label="Technologies and skills">
-        {SKILLS.map((skill) => (
+        {ABOUT_SKILLS.map((skill) => (
           <li key={skill}><code>{skill}</code></li>
         ))}
       </ul>

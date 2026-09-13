@@ -198,13 +198,13 @@ main::before {
   display: inline-block;
   color: var(--accent);
   text-decoration: none;
-  animation: glowPulse 2.4s ease-in-out infinite;
+  /* animation: glowPulse 2.4s ease-in-out infinite; */
 }
 
 .profile h1 a:hover,
 .profile h1 a:focus-visible {
-  animation: glowPulse 2.4s ease-in-out infinite, crtSignal 1s linear infinite;
-  will-change: transform;
+  /* animation: glowPulse 2.4s ease-in-out infinite, crtSignal 1s linear infinite;
+  will-change: transform; */
 }
 
 @keyframes glowPulse {
@@ -639,6 +639,12 @@ main::before {
 
 :root[data-theme="light"] .about-contact-command {
   background: rgba(0, 0, 0, 0.02);
+}
+
+.bio-meta {
+  color: var(--muted);
+  font-size: 0.9em;
+  opacity: 0.85;
 }
 
 /* --- 6. Terminal ---------------------------------------------------------- */
