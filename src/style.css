@@ -1181,7 +1181,12 @@ main::before {
   margin-top: 32px;
   color: var(--accent);
   text-decoration: none;
+  font: inherit;
   font-size: 0.9em;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
 }
 
 .article-back:hover {

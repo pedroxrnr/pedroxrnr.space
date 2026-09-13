@@ -1,4 +1,4 @@
-import { useParams, Link } from 'react-router-dom'
+import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import useDocumentTitle from '../hooks/useDocumentTitle'
@@ -18,11 +18,21 @@ function PreBlock({ children }) {
 
 export default function Article() {
   const { slug } = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
   const article = getArticle(slug)
 
   useDocumentTitle(article ? article.meta.title : '404: Article Not Found')
 
   if (!article) return <NotFound />
+
+  const goBack = () => {
+    if (location.key === 'default') {
+      navigate('/articles')
+    } else {
+      navigate(-1)
+    }
+  }
 
   return (
     <article className="content article-page">
@@ -41,7 +51,7 @@ export default function Article() {
         {article.content}
       </ReactMarkdown>
 
-      <Link className="article-back" to="/articles">[ cd .. ]</Link>
+      <button type="button" className="article-back" onClick={goBack}>[cd ..]</button>
     </article>
   )
 }
