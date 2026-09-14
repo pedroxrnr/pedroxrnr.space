@@ -19,7 +19,7 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        __LAST_UPDATE__: 'readonly',
+        __LAST_UPDATE_ISO__: 'readonly',
       },
     },
     settings: {

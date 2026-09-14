@@ -4,6 +4,7 @@ import LinkedInIcon from '../components/LinkedInIcon'
 import EmailIcon from '../components/EmailIcon'
 import { ABOUT_SKILLS } from '../data/skills'
 import { EXPERIENCE } from '../data/experience'
+import { useI18n } from '../i18n/useI18n'
 
 const CONTACTS = [
   { label: 'GitHub', value: 'github.com/pedroxrnr', url: 'https://github.com/pedroxrnr', Icon: GitHubIcon },
@@ -11,39 +12,37 @@ const CONTACTS = [
   { label: 'Email', value: 'renerpedro@gmail.com', url: 'mailto:renerpedro@gmail.com', Icon: EmailIcon },
 ]
 
+const SKILL_KEYS = {
+  Networking: 'networking',
+}
+
 export default function About() {
-  useDocumentTitle('About')
+  const { t } = useI18n()
+  useDocumentTitle(t('about.documentTitle'))
 
   return (
     <section className="content">
-      <h2><span className="prompt">~$</span> About</h2>
+      <h2><span className="prompt">~$</span> {t('about.heading')}</h2>
 
-      <h3>Bio</h3>
-      <p>
-        I'm Pedro, a Brazilian Information Systems undergrad at UniFAPCE (2nd semester), passionate about
-        cybersecurity and defensive security.
-      </p>
-      <p>
-        I'm currently building a solid foundation in Linux, networking, Python, and security fundamentals through
-        continuous study, hands-on labs, and personal projects, while taking Google's Foundations of Cybersecurity
-        course.
-      </p>
-      <p>
-        My goal is to build a career in cybersecurity, contribute to real-world projects, and keep sharpening my
-        technical skills every day.
-      </p>
-      <p className="bio-meta">Languages: Portuguese (native), English (advanced)</p>
+      <h3>{t('about.bioHeading')}</h3>
+      <p>{t('about.bio1')}</p>
+      <p>{t('about.bio2')}</p>
+      <p>{t('about.bio3')}</p>
+      <p className="bio-meta">{t('about.bioMeta')}</p>
 
-      <h3>Skills</h3>
-      <ul className="tech-chips" aria-label="Technologies and skills">
-        {ABOUT_SKILLS.map((skill) => (
-          <li key={skill}><code>{skill}</code></li>
-        ))}
+      <h3>{t('about.skillsHeading')}</h3>
+      <ul className="tech-chips" aria-label={t('about.skillsAria')}>
+        {ABOUT_SKILLS.map((skill) => {
+          const label = SKILL_KEYS[skill] ? t(`skills.${SKILL_KEYS[skill]}`) : skill
+          return (
+            <li key={skill}><code>{label}</code></li>
+          )
+        })}
       </ul>
 
       {EXPERIENCE.length > 0 && (
         <>
-          <h3>Experience</h3>
+          <h3>{t('about.experienceHeading')}</h3>
           <div className="experience">
             {EXPERIENCE.map(({ company, role, period, description }) => (
               <article className="experience-item" key={company}>
@@ -59,11 +58,11 @@ export default function About() {
         </>
       )}
 
-      <h3>Contact</h3>
+      <h3>{t('about.contactHeading')}</h3>
       <div className="about-contact">
         <div className="about-contact-command">
           <span className="term-prompt">~$</span>
-          <span>cat ~/.contact</span>
+          <span>{t('about.contactCommand')}</span>
         </div>
         <ul className="about-contact-links">
           {CONTACTS.map(({ label, value, url, Icon }) => (

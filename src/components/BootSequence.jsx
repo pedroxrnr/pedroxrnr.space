@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { useI18n } from '../i18n/useI18n'
 
 const BOOT_LINES = [
   { text: '[    0.000000] PEDRØXRNR v2.0.0', ok: false },
@@ -25,6 +26,7 @@ export default function BootSequence({ onComplete }) {
     }
   })
   const skipButtonRef = useRef(null)
+  const { t } = useI18n()
 
   const skip = useCallback(() => {
     try {
@@ -60,8 +62,8 @@ export default function BootSequence({ onComplete }) {
       window.matchMedia('(prefers-reduced-motion: reduce)').matches
     if (!prefersReducedMotion) return
 
-    const t = setTimeout(skip, 0)
-    return () => clearTimeout(t)
+    const timer = setTimeout(skip, 0)
+    return () => clearTimeout(timer)
   }, [bootSeen, skip])
 
   useEffect(() => {
@@ -88,8 +90,8 @@ export default function BootSequence({ onComplete }) {
 
   useEffect(() => {
     if (isExiting) {
-      const t = setTimeout(onComplete, EXIT_TRANSITION_MS)
-      return () => clearTimeout(t)
+      const timer = setTimeout(onComplete, EXIT_TRANSITION_MS)
+      return () => clearTimeout(timer)
     }
   }, [isExiting, onComplete])
 
@@ -108,9 +110,9 @@ export default function BootSequence({ onComplete }) {
       className={`boot-overlay ${isExiting ? 'boot-exit' : ''}`}
       role="dialog"
       aria-modal="true"
-      aria-label="System boot"
+      aria-label={t('boot.dialogLabel')}
     >
-      <div className="boot-log" role="log" aria-label="Boot log">
+      <div className="boot-log" role="log" aria-label={t('boot.logLabel')}>
         {BOOT_LINES.map((line, i) => (
           <div
             key={i}
@@ -122,7 +124,7 @@ export default function BootSequence({ onComplete }) {
       </div>
 
       <button className="boot-skip" onClick={skip} type="button" ref={skipButtonRef}>
-        Skip [Enter]
+        {t('boot.skip')}
       </button>
     </div>
   )

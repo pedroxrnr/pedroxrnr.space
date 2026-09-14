@@ -2,8 +2,9 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import useDocumentTitle from '../hooks/useDocumentTitle'
-import { getArticle } from '../data/articles'
+import { getArticle, formatArticleDate } from '../data/articles'
 import Terminal from '../components/Terminal'
+import { useI18n } from '../i18n/useI18n'
 import NotFound from './NotFound'
 
 function PreBlock({ children }) {
@@ -20,9 +21,11 @@ export default function Article() {
   const { slug } = useParams()
   const navigate = useNavigate()
   const location = useLocation()
-  const article = getArticle(slug)
+  const { lang, t } = useI18n()
 
-  useDocumentTitle(article ? article.meta.title : '404: Article Not Found')
+  const article = getArticle(slug, lang)
+
+  useDocumentTitle(article ? article.meta.title : undefined)
 
   if (!article) return <NotFound />
 
@@ -39,7 +42,7 @@ export default function Article() {
       <h2><span className="prompt">~$</span> {article.meta.title}</h2>
 
       <p className="article-meta-line">
-        <span className="article-date">{article.meta.dateLabel}</span>
+        <span className="article-date">{formatArticleDate(article.meta.dateObj, lang)}</span>
         <span className="article-sep" aria-hidden="true"> | </span>
         <span className="article-meta-id">#{article.slug}</span>
       </p>
@@ -51,7 +54,7 @@ export default function Article() {
         {article.content}
       </ReactMarkdown>
 
-      <button type="button" className="article-back" onClick={goBack}>[cd ..]</button>
+      <button type="button" className="article-back" onClick={goBack}>{t('article.back')}</button>
     </article>
   )
 }

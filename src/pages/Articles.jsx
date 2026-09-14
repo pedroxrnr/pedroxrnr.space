@@ -1,16 +1,21 @@
 import { Link, useSearchParams } from 'react-router-dom'
 import useDocumentTitle from '../hooks/useDocumentTitle'
 import MatrixRain from '../components/MatrixRain'
-import { articles, allTags } from '../data/articles'
+import { getArticles, getAllTags, formatArticleDate } from '../data/articles'
+import { useI18n } from '../i18n/useI18n'
 
 const ITEMS_FIRST_PAGE = 5
 const ITEMS_PER_PAGE = 10
 
 export default function Articles() {
-  useDocumentTitle('Articles')
+  const { lang, t } = useI18n()
+  useDocumentTitle(t('articles.documentTitle'))
 
   const [searchParams, setSearchParams] = useSearchParams()
   const tag = searchParams.get('tag') || null
+
+  const articles = getArticles(lang)
+  const allTags = getAllTags(lang)
 
   const filtered = tag ? articles.filter((a) => a.meta.tags.includes(tag)) : articles
 
@@ -35,9 +40,9 @@ export default function Articles() {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const changeTag = (t) => {
+  const changeTag = (nextTag) => {
     const next = {}
-    if (t) next.tag = t
+    if (nextTag) next.tag = nextTag
     setSearchParams(next)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
@@ -45,41 +50,41 @@ export default function Articles() {
   return (
     <section className="content">
       <h2>
-        <span className="prompt">~$</span> Articles
+        <span className="prompt">~$</span> {t('articles.heading')}
       </h2>
 
       {page === 1 && <MatrixRain />}
 
-      <p>Writeups and notes about cybersecurity, computers, or any other subject.</p>
+      <p>{t('articles.intro')}</p>
 
       {articles.length === 0 ? (
-        <p className="articles-empty">No articles yet, Check back soon.</p>
+        <p className="articles-empty">{t('articles.empty')}</p>
       ) : (
         <>
-          <div className="article-filters" role="group" aria-label="Filter articles by tag">
+          <div className="article-filters" role="group" aria-label={t('articles.filterAria')}>
             <button
               type="button"
               className={tag === null ? 'filter-chip active' : 'filter-chip'}
               aria-pressed={tag === null}
               onClick={() => changeTag(null)}
             >
-              all
+              {t('articles.all')}
             </button>
-            {allTags.map((t) => (
+            {allTags.map((item) => (
               <button
                 type="button"
-                key={t}
-                className={tag === t ? 'filter-chip active' : 'filter-chip'}
-                aria-pressed={tag === t}
-                onClick={() => changeTag(tag === t ? null : t)}
+                key={item}
+                className={tag === item ? 'filter-chip active' : 'filter-chip'}
+                aria-pressed={tag === item}
+                onClick={() => changeTag(tag === item ? null : item)}
               >
-                {t}
+                {item}
               </button>
             ))}
           </div>
 
           {filtered.length === 0 ? (
-            <p className="articles-empty">No articles match the "{tag}" tag.</p>
+            <p className="articles-empty">{t('articles.noMatch', { tag })}</p>
           ) : (
             <>
               <div className="articles-list" key={page}>
@@ -88,20 +93,22 @@ export default function Articles() {
                     <Link className="article-item-main" to={`/articles/${article.slug}`}>
                       <span className="article-item-head">
                         <span className="article-item-title">{article.meta.title}</span>
-                        <span className="article-date">{article.meta.dateLabel}</span>
+                        <span className="article-date">
+                          {formatArticleDate(article.meta.dateObj, lang)}
+                        </span>
                       </span>
                       <span className="article-excerpt">{article.meta.excerpt}</span>
                     </Link>
                     <div className="article-item-tags">
-                      {article.meta.tags.map((t) => (
+                      {article.meta.tags.map((item) => (
                         <button
                           type="button"
-                          key={t}
+                          key={item}
                           className="article-tag"
-                          aria-pressed={tag === t}
-                          onClick={() => changeTag(tag === t ? null : t)}
+                          aria-pressed={tag === item}
+                          onClick={() => changeTag(tag === item ? null : item)}
                         >
-                          {t}
+                          {item}
                         </button>
                       ))}
                     </div>
@@ -110,14 +117,14 @@ export default function Articles() {
               </div>
 
               {totalPages > 1 && (
-                <nav className="pagination" aria-label="Pagination">
+                <nav className="pagination" aria-label={t('articles.paginationAria')}>
                   <button
                     type="button"
                     className="filter-chip"
                     disabled={page === 1}
                     onClick={() => goToPage(page - 1)}
                   >
-                    prev
+                    {t('articles.prev')}
                   </button>
                   {Array.from({ length: totalPages }, (_, i) => i + 1).map((num) => (
                     <button
@@ -136,7 +143,7 @@ export default function Articles() {
                     disabled={page === totalPages}
                     onClick={() => goToPage(page + 1)}
                   >
-                    next
+                    {t('articles.next')}
                   </button>
                 </nav>
               )}
